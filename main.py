@@ -30,7 +30,7 @@ def get_git_commit_message():
         return result.stdout.strip()
 
     except subprocess.CalledProcessError:
-        print("Error: 這似乎不是一個 git 儲存庫，或者沒有安裝 git。")
+        print("Error: 這不是一個 git 儲存庫，或尚未安裝 git。")
         return None
 
 #生成Commit訊息
@@ -102,12 +102,15 @@ def main():
         print("message: 沒有偵測到暫存的變更(Staged Changes)，如有變更請先執行 git add")
         return
     print("🤖 AI 正在分析程式碼變更，請稍候...")
+
     #生成Commit訊息
     commit_msg = generate_commit_message(diff)
+
     #檢查Commit訊息是否生成成功
     if not commit_msg:
         print("Error: 無法生成 Commit 訊息 (可能是 API 錯誤或 Token 限制)")
         return
+
     #輸出Commit訊息
     print("\n------------------------------------")
     print(f"📝 建議訊息: {commit_msg}")
