@@ -1,4 +1,4 @@
-# SmartCommit 🤖
+# aicommit-cli 🤖
 
 使用 AI 自動生成符合 Conventional Commits 規範的 Git commit 訊息。
 
@@ -18,49 +18,41 @@
 ## 📋 安裝需求
 
 - Python 3.10+
-- [pipx](https://github.com/pypa/pipx)（推薦）
 - Google Gemini API 金鑰
 - Git
 
 ## 🚀 快速開始
 
-### 1. 安裝 pipx
+### 1. 安裝 aicommit-cli
 
 ```bash
-# macOS
-brew install pipx
-pipx ensurepath
+# 使用 pip 安裝
+pip install aicommitcli-joy
 
-# Linux/WSL
-python3 -m pip install --user pipx
-python3 -m pipx ensurepath
+# 或使用 pipx（推薦，避免依賴衝突）
+pipx install aicommitcli-joy
+
+# 或使用 uv（最快速）
+uv tool install aicommitcli-joy
 ```
 
-重新啟動終端或執行 `source ~/.zshrc` (或 `~/.bashrc`)
+> 💡 **提示**:
+>
+> - 使用 **pipx** 請先執行 `pip install pipx`，參考 [pipx 官方文檔](https://github.com/pypa/pipx)
+> - 使用 **uv** 請先安裝 uv，參考 [uv 官方文檔](https://docs.astral.sh/uv/)
 
-### 2. 安裝 SmartCommit
+### 2. 設定 API 金鑰
 
-```bash
-# Clone 專案
-git clone https://github.com/Joy0130/SmartCommit.git
-
-# 使用 pipx 安裝（全域可用）
-pipx install SmartCommit/
-```
-
-### 3. 設定 API 金鑰
-
-在 SmartCommit 專案目錄建立 `.env` 檔案：
+在您的專案目錄建立 `.env` 檔案：
 
 ```bash
-cd SmartCommit
 echo "GEMINI_API_KEY=your_gemini_api_key_here" > .env
 ```
 
 > **如何取得 API 金鑰？**  
 > 前往 [Google AI Studio](https://aistudio.google.com/apikey) 免費取得您的 Gemini API 金鑰
 
-### 4. 開始使用
+### 3. 開始使用
 
 ```bash
 # 在任何 Git 專案中
@@ -69,8 +61,8 @@ cd /path/to/your/project
 # 暫存變更
 git add .
 
-# 執行 smartcommit
-smartcommit
+# 執行 aicommit-cli
+aicommit-cli
 ```
 
 就這麼簡單！✨
@@ -80,7 +72,7 @@ smartcommit
 ```bash
 $ cd /path/to/your/project
 $ git add .
-$ smartcommit
+$ aicommit-cli
 
 🤖 AI 正在分析程式碼變更，請稍候...
 
@@ -103,7 +95,7 @@ feat: 新增使用者登入功能
 
 ## 🎯 操作選項
 
-執行 `smartcommit` 後，您有三個選項：
+執行 `aicommit-cli` 後，您有三個選項：
 
 - **`y`** - 直接使用 AI 生成的訊息提交
 - **`e`** - 編輯訊息後再提交
@@ -111,7 +103,7 @@ feat: 新增使用者登入功能
 
 ## 📝 Conventional Commits 規範
 
-SmartCommit 遵循 [Conventional Commits](https://www.conventionalcommits.org/) 規範。
+aicommit-cli 遵循 [Conventional Commits](https://www.conventionalcommits.org/) 規範。
 
 ### 允許的 Commit Types
 
@@ -152,32 +144,28 @@ SmartCommit 遵循 [Conventional Commits](https://www.conventionalcommits.org/) 
 ### 查看版本
 
 ```bash
-smartcommit --version
+aicommit-cli --version
 ```
 
 ### 查看幫助
 
 ```bash
-smartcommit --help
+aicommit-cli --help
 ```
 
-### 更新 SmartCommit
+### 更新 aicommit-cli
 
 ```bash
-cd /path/to/SmartCommit
-git pull
-pipx install . --force
+pip install --upgrade aicommitcli-joy
+# 或
+pipx upgrade aicommitcli-joy
 ```
 
-### 移除 SmartCommit
+pip uninstall aicommitcli-joy
 
-```bash
-pipx uninstall smartcommit
-```
+# 或
 
-## 🔧 故障排除
-
-### ❌ 找不到 GEMINI_API_KEY
+pipx uninstall aicommitcli-joy
 
 ```
 ❌ Error: 找不到 GEMINI_API_KEY
@@ -186,7 +174,7 @@ pipx uninstall smartcommit
 
 **解決方案**：
 
-1. 確認 SmartCommit 專案目錄中有 `.env` 檔案
+1. 確認您的專案目錄中有 `.env` 檔案
 2. 檢查 `.env` 內容格式正確：`GEMINI_API_KEY=your_key_here`
 3. API 金鑰沒有多餘的引號或空格
 
@@ -227,33 +215,29 @@ git add file1.py file2.py   # 暫存特定檔案
 ### 專案結構
 
 ```
-SmartCommit/
-├── smartcommit/           # 主要套件
+aicommit-cli/
+├── aicommit_cli/            # 主要套件
 │   ├── __init__.py       # 套件初始化
 │   ├── core.py           # 核心功能（Git、AI、驗證）
 │   └── cli.py            # CLI 入口點
 ├── install.sh            # 自動安裝腳本
 ├── pyproject.toml        # 專案配置
-├── .env                  # API 金鑰（不提交到 Git）
+├── LICENSE               # MIT 授權
 └── README.md             # 專案說明
 ```
 
 ### 開發模式安裝
 
-如果您想要貢獻程式碼或開發新功能：
+如果您想要開發或修改 aicommit-cli：
 
 ```bash
-# Clone 專案
-git clone https://github.com/Joy0130/SmartCommit.git
-cd SmartCommit
+# 從 PyPI 下載原始碼或使用 git clone 本地副本
+cd aicommit-cli
 
-# 使用 uv 安裝依賴（開發模式）
-uv sync
+# 使用 pip 可編輯安裝
+pip install -e .
 
-# 執行（開發模式）
-uv run smartcommit
-
-# 或使用 pipx 可編輯安裝
+# 或使用 pipx
 pipx install -e .
 ```
 
@@ -270,19 +254,13 @@ git init
 echo "# Test" > README.md
 git add README.md
 
-# 測試 smartcommit
-smartcommit
+# 測試 aicommit-cli
+aicommit-cli
 ```
 
-## 🤝 貢獻指南
+## 🤝 貢獻
 
-歡迎提交 Issue 和 Pull Request！
-
-1. Fork 專案
-2. 創建您的特性分支：`git checkout -b feature/AmazingFeature`
-3. 提交您的變更：`git commit -m 'feat: 新增某個很棒的功能'`
-4. 推送到分支：`git push origin feature/AmazingFeature`
-5. 開啟 Pull Request
+歡迎貢獻代碼、報告問題或提出建議！
 
 ## 📄 授權
 
@@ -295,6 +273,4 @@ MIT License
 
 ---
 
-**享受使用 SmartCommit 的樂趣！** 🚀
-
-有任何問題或建議，歡迎在 [GitHub Issues](https://github.com/Joy0130/SmartCommit/issues) 提出。
+**享受使用 aicommit-cli 的樂趣！** 🚀

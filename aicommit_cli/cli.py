@@ -1,4 +1,4 @@
-"""Command-line interface for SmartCommit."""
+"""Command-line interface for aicommit-cli."""
 
 import sys
 import subprocess
@@ -15,10 +15,10 @@ def main():
     # 處理命令行參數
     if len(sys.argv) > 1:
         if sys.argv[1] in ['--help', '-h']:
-            print("""SmartCommit - AI-powered Git commit message generator
+            print("""aicommit-cli - AI-powered Git commit message generator
                     使用方式:
-                    smartcommit          在目前的 Git 專案中生成 commit 訊息
-                    smartcommit --help   顯示此幫助訊息
+                    aicommit-cli          在目前的 Git 專案中生成 commit 訊息
+                    aicommit-cli --help   顯示此幫助訊息
 
                     功能:
                     - 自動分析 Git diff 並生成符合 Conventional Commits 規範的訊息
@@ -29,7 +29,7 @@ def main():
         
         elif sys.argv[1] == '--version':
             from . import __version__
-            print(f"SmartCommit v{__version__}")
+            print(f"aicommit-cli v{__version__}")
             return
     
     # 檢查 API 金鑰
