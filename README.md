@@ -9,41 +9,100 @@
 - ✅ **格式驗證**：自動檢查 commit 訊息是否符合 Conventional Commits 規範
 - 🎯 **繁體中文支援**：生成的訊息使用繁體中文描述
 
-## 安裝需求
+## 安裝
 
-- Python 3.x
-- Google Gemini API 金鑰
-- Git
+### 方法 1：使用 pipx（推薦）⭐
 
-## 快速開始
-
-### 1. 設定 API 金鑰
-
-建立 `.env` 檔案並加入您的 Gemini API 金鑰：
+**適合想要全域使用 `smartcommit` 指令的使用者**
 
 ```bash
-GEMINI_API_KEY=your_api_key_here
+# 1. 安裝 pipx（如果還沒有）
+brew install pipx
+pipx ensurepath
+
+# 2. Clone 專案
+git clone https://github.com/Joy0130/SmartCommit.git
+
+# 3. 使用 pipx 安裝
+pipx install /path/to/SmartCommit
+
+使用 pipx 安裝後，可以用 pipx uninstall smartcommit 輕鬆移除
+
+# 4. 設定 API 金鑰（在 SmartCommit 專案目錄）
+cd SmartCommit
+echo "GEMINI_API_KEY=your_api_key_here" > .env
 ```
 
-### 2. 暫存變更
+**安裝完成後，可以在任何目錄直接使用：**
 
 ```bash
-git add <your_files>
+cd /path/to/any/git/project
+git add .
+smartcommit  # 直接執行！
 ```
 
-### 3. 執行程式
+---
+
+### 方法 2：開發模式（適合貢獻者）
 
 ```bash
-uv run python main.py
+# 1. Clone 專案
+git clone https://github.com/Joy0130/SmartCommit.git
+cd SmartCommit
+
+# 2. 使用 uv 安裝依賴
+uv sync
+
+# 3. 設定 API 金鑰
+echo "GEMINI_API_KEY=your_api_key_here" > .env
+
+# 4. 使用 uv run 執行
+uv run smartcommit
 ```
 
-### 4. 選擇操作
+---
 
-程式會顯示 AI 生成的 commit 訊息，您可以選擇：
+### 方法 3：簡單腳本方式
 
-- **`y`** - 使用 AI 生成的訊息
-- **`e`** - 編輯訊息
-- **`n`** - 取消提交
+如果不想安裝，可以直接執行 Python 腳本：
+
+```bash
+# Clone 專案
+git clone https://github.com/Joy0130/SmartCommit.git
+cd SmartCommit
+
+# 設定 API 金鑰
+echo "GEMINI_API_KEY=your_api_key_here" > .env
+
+# 在任何 Git 專案中使用
+cd /path/to/your/project
+git add .
+python /path/to/SmartCommit/main.py
+```
+
+**提示**：可以在 `~/.zshrc` 或 `~/.bashrc` 加入 alias：
+
+```bash
+alias smartcommit='python /path/to/SmartCommit/main.py'
+```
+
+---
+
+## 使用方式
+
+```bash
+# 1. 在您的 Git 專案中暫存變更
+cd /path/to/your/project
+git add .
+
+# 2. 執行 smartcommit
+smartcommit
+
+# 3. 選擇操作
+# - y: 使用 AI 生成的訊息
+# - e: 編輯訊息
+# - n: 取消提交
+```
 
 ## Conventional Commits 規範
 
@@ -78,8 +137,12 @@ uv run python main.py
 
 ## 使用範例
 
+### 使用 uv run
+
 ```bash
-$ python main.py
+$ cd /path/to/your/project
+$ git add .
+$ uv run --directory /Users/joy/Documents/SmartCommit smartcommit
 
 🤖 AI 正在分析程式碼變更，請稍候...
 
@@ -98,6 +161,17 @@ feat: 新增使用者登入功能
 
 是否提交此訊息? (y/n): y
 ✅ 提交成功！
+```
+
+### 使用 Python 腳本
+
+```bash
+$ cd /path/to/your/project
+$ git add .
+$ python /Users/joy/Documents/SmartCommit/main.py
+
+🤖 AI 正在分析程式碼變更，請稍候...
+...
 ```
 
 ## 格式驗證
@@ -150,3 +224,55 @@ Error: 無法生成 Commit 訊息 (可能是 API 錯誤或 Token 限制)
 - 檢查網路連線
 - 確認 API 金鑰是否有效
 - 如果變更內容過大，可能需要手動編輯
+
+## 開發指南
+
+### 專案結構
+
+```
+SmartCommit/
+├── smartcommit/           # 主要套件
+│   ├── __init__.py       # 套件初始化
+│   ├── core.py           # 核心功能（Git、AI、驗證）
+│   └── cli.py            # CLI 入口點
+├── pyproject.toml        # 專案配置
+├── .env                  # API 金鑰（不要提交到 Git）
+└── README.md             # 專案說明
+```
+
+### 開發模式安裝
+
+```bash
+# Clone 專案
+git clone https://github.com/Joy0130/SmartCommit.git
+cd SmartCommit
+
+# 使用 uv 開發模式安裝
+uv sync
+
+# 或使用 pip
+pip install -e .
+```
+
+### 執行測試
+
+```bash
+# 在測試專案中進行測試
+cd /tmp
+mkdir test-repo
+cd test-repo
+git init
+echo "# Test" > README.md
+git add README.md
+smartcommit
+```
+
+### 貢獻指南
+
+歡迎提交 Issue 和 Pull Request！
+
+1. Fork 專案
+2. 創建您的特性分支 (`git checkout -b feature/AmazingFeature`)
+3. 提交您的變更 (`git commit -m 'feat: 新增某個很棒的功能'`)
+4. 推送到分支 (`git push origin feature/AmazingFeature`)
+5. 開啟 Pull Request
