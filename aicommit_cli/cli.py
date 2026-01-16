@@ -64,7 +64,7 @@ def main():
         if user_input == 'y':
             # 使用AI生成的訊息提交
             subprocess.run(['git', 'commit', '-m', commit_msg])
-            print("✅ 提交成功！")
+            print("✅ 提交成功！可以使用 git push 上傳")
             break
         elif user_input == 'e':
             # 讓使用者編輯訊息
@@ -85,7 +85,7 @@ def main():
                 # 格式正確，更新訊息
                 commit_msg = edited_msg
                 print(f"\n✅ 訊息格式正確！")
-                print(f"📝 更新後的訊息: {commit_msg}")
+                print(f"📝 更新後的訊息: \033[1;32m{commit_msg}\033[0m") # 綠色高亮
                 
                 # 再次確認是否提交
                 confirm = input("\n是否提交此訊息? (y/n): ").lower()
