@@ -1,6 +1,8 @@
 # aicommit-cli 🤖
 
 使用 AI 自動生成符合 Conventional Commits 規範的 Git commit 訊息。
+使用 Gemini 2.5 Flash-Lite
+這是速度最快的 Flash 模型，經過最佳化調整，成本效益最高，輸送量也最大。
 
 ## 📚 branch 分支功能
 
@@ -242,27 +244,6 @@ aicommit-cli/
 └── README.md             # 專案說明
 ```
 
-### 開發模式安裝
-
-如果您想要開發或修改 aicommit-cli：
-
-```bash
-# 1. Clone 專案（或 fork 後 clone 您的版本）
-git clone https://github.com/Joy0130/SmartCommit.git
-cd SmartCommit
-
-# 2. 使用 pip 可編輯安裝
-pip install -e .
-
-# 或使用 pipx（推薦開發使用）
-pipx install -e .
-
-# 或使用 uv
-uv pip install -e .
-```
-
-> **注意**：開發模式安裝後，您對原始碼的修改會立即生效，無需重新安裝。
-
 ### 執行測試
 
 ```bash
@@ -279,14 +260,6 @@ git add README.md
 # 測試 aicommit-cli
 aicommit-cli
 ```
-
-## 🤝 貢獻
-
-歡迎貢獻代碼、報告問題或提出建議！
-
-## 📄 授權
-
-MIT License
 
 ## 🙏 致謝
 
