@@ -2,6 +2,11 @@
 
 使用 AI 自動生成符合 Conventional Commits 規範的 Git commit 訊息。
 
+## 📚 branch 分支功能
+
+- main：請參閱此檔案說明
+- ai：請切換到 **ai** 分支，參考 ai 分支的 README.md
+
 ## ✨ 功能特色
 
 - 🤖 **AI 智能生成**：使用 Google Gemini AI 分析程式碼變更，自動生成專業的 commit 訊息
