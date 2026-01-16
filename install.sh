@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# SmartCommit 安裝腳本
-# 自動安裝 SmartCommit 並設定為全域命令
+# aicommit-cli 安裝腳本
+# 自動安裝 aicommit-cli 並設定為全域命令
 
 set -e  # 遇到錯誤立即停止
 
-echo "🚀 SmartCommit 安裝程式"
+echo "🚀 aicommit-cli 安裝程式"
 echo "========================"
 echo ""
 
@@ -37,18 +37,18 @@ if ! command -v pipx &> /dev/null; then
     echo ""
 fi
 
-# 取得腳本所在目錄（SmartCommit 專案目錄）
+# 取得腳本所在目錄（aicommit-cli 專案目錄）
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-echo "📍 SmartCommit 位置: $SCRIPT_DIR"
+echo "📍 aicommit-cli 位置: $SCRIPT_DIR"
 echo ""
 
-# 安裝 SmartCommit
-echo "📦 正在安裝 SmartCommit..."
+# 安裝 aicommit-cli
+echo "📦 正在安裝 aicommit-cli..."
 pipx install -e "$SCRIPT_DIR" --force
 
 echo ""
-echo "✅ SmartCommit 安裝完成！"
+echo "✅ aicommit-cli 安裝完成！"
 echo ""
 
 # 檢查 .env 檔案
@@ -74,8 +74,8 @@ echo "🎉 安裝完成！"
 echo ""
 echo "使用方式："
 echo "  1. 在任何 Git 專案中執行 'git add .'"
-echo "  2. 執行 'smartcommit'"
+echo "  2. 執行 'aicommit-cli'"
 echo ""
 echo "測試安裝："
-echo "  smartcommit --help"
+echo "  aicommit-cli --help"
 echo ""

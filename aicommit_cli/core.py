@@ -1,4 +1,4 @@
-"""Core functionality for SmartCommit."""
+"""Core functionality for aicommit-cli."""
 
 import os
 import subprocess
