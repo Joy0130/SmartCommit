@@ -156,16 +156,32 @@ aicommit-cli --help
 ### 更新 aicommit-cli
 
 ```bash
+# 使用 pip
 pip install --upgrade aicommitcli-joy
-# 或
+
+# 或使用 pipx
 pipx upgrade aicommitcli-joy
+
+# 或使用 uv
+uv tool upgrade aicommitcli-joy
 ```
 
+### 卸載 aicommit-cli
+
+```bash
+# 使用 pip
 pip uninstall aicommitcli-joy
 
-# 或
-
+# 或使用 pipx
 pipx uninstall aicommitcli-joy
+
+# 或使用 uv
+uv tool uninstall aicommitcli-joy
+```
+
+## 🔧 問題排除
+
+### ❌ 找不到 GEMINI_API_KEY
 
 ```
 ❌ Error: 找不到 GEMINI_API_KEY
@@ -231,15 +247,21 @@ aicommit-cli/
 如果您想要開發或修改 aicommit-cli：
 
 ```bash
-# 從 PyPI 下載原始碼或使用 git clone 本地副本
-cd aicommit-cli
+# 1. Clone 專案（或 fork 後 clone 您的版本）
+git clone https://github.com/Joy0130/SmartCommit.git
+cd SmartCommit
 
-# 使用 pip 可編輯安裝
+# 2. 使用 pip 可編輯安裝
 pip install -e .
 
-# 或使用 pipx
+# 或使用 pipx（推薦開發使用）
 pipx install -e .
+
+# 或使用 uv
+uv pip install -e .
 ```
+
+> **注意**：開發模式安裝後，您對原始碼的修改會立即生效，無需重新安裝。
 
 ### 執行測試
 
