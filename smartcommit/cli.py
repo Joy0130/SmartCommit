@@ -91,7 +91,7 @@ def main():
                 confirm = input("\n是否提交此訊息? (y/n): ").lower()
                 if confirm == 'y':
                     subprocess.run(['git', 'commit', '-m', commit_msg])
-                    print("✅ 提交成功！")
+                    print("✅ 提交成功！可以使用 git push 上傳")
                     break
                 else:
                     print("返回選單...")
