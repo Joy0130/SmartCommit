@@ -1,4 +1,4 @@
-# aicommit-cli 🤖
+# aicommit 🤖
 
 使用 AI 自動生成符合 Conventional Commits 規範的 Git commit 訊息。
 使用 Gemini 2.5 Flash-Lite
@@ -25,17 +25,17 @@
 
 ## 🚀 快速開始
 
-### 1. 安裝 aicommit-cli
+### 1. 安裝 aicommit
 
 ```bash
 # 使用 pip 安裝
-pip install aicommitcli-joy
+pip install aicommit-joy
 
 # 或使用 pipx（推薦，避免依賴衝突）
-pipx install aicommitcli-joy
+pipx install aicommit-joy
 
 # 或使用 uv（最快速）
-uv tool install aicommitcli-joy
+uv tool install aicommit-joy
 ```
 
 > 💡 **提示**:
@@ -63,8 +63,8 @@ cd /path/to/your/project
 # 暫存變更
 git add .
 
-# 執行 aicommit-cli
-aicommit-cli
+# 執行 aicommit
+aicommit
 ```
 
 就這麼簡單！✨
@@ -74,7 +74,7 @@ aicommit-cli
 ```bash
 $ cd /path/to/your/project
 $ git add .
-$ aicommit-cli
+$ aicommit
 
 🤖 AI 正在分析程式碼變更，請稍候...
 
@@ -97,7 +97,7 @@ feat: 新增使用者登入功能
 
 ## 🎯 操作選項
 
-執行 `aicommit-cli` 後，您有三個選項：
+執行 `aicommit` 後，您有三個選項：
 
 - **`y`** - 直接使用 AI 生成的訊息提交
 - **`e`** - 編輯訊息後再提交
@@ -105,7 +105,7 @@ feat: 新增使用者登入功能
 
 ## 📝 Conventional Commits 規範
 
-aicommit-cli 遵循 [Conventional Commits](https://www.conventionalcommits.org/) 規範。
+aicommit 遵循 [Conventional Commits](https://www.conventionalcommits.org/) 規範。
 
 ### 允許的 Commit Types
 
@@ -146,39 +146,39 @@ aicommit-cli 遵循 [Conventional Commits](https://www.conventionalcommits.org/)
 ### 查看版本
 
 ```bash
-aicommit-cli --version
+aicommit --version
 ```
 
 ### 查看幫助
 
 ```bash
-aicommit-cli --help
+aicommit --help
 ```
 
-### 更新 aicommit-cli
+### 更新 aicommit
 
 ```bash
 # 使用 pip
-pip install --upgrade aicommitcli-joy
+pip install --upgrade aicommit-joy
 
 # 或使用 pipx
-pipx upgrade aicommitcli-joy
+pipx upgrade aicommit-joy
 
 # 或使用 uv
-uv tool upgrade aicommitcli-joy
+uv tool upgrade aicommit-joy
 ```
 
-### 卸載 aicommit-cli
+### 卸載 aicommit
 
 ```bash
 # 使用 pip
-pip uninstall aicommitcli-joy
+pip uninstall aicommit-joy
 
 # 或使用 pipx
-pipx uninstall aicommitcli-joy
+pipx uninstall aicommit-joy
 
 # 或使用 uv
-uv tool uninstall aicommitcli-joy
+uv tool uninstall aicommit-joy
 ```
 
 ## 🔧 問題排除
@@ -257,8 +257,8 @@ git init
 echo "# Test" > README.md
 git add README.md
 
-# 測試 aicommit-cli
-aicommit-cli
+# 測試 aicommit
+aicommit
 ```
 
 ## 🙏 致謝
@@ -268,4 +268,4 @@ aicommit-cli
 
 ---
 
-**享受使用 aicommit-cli 的樂趣！** 🚀
+**享受使用 aicommit 的樂趣！** 🚀
