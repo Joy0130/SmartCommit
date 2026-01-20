@@ -25,14 +25,59 @@
 
 ## 🚀 快速開始
 
-### 1. 安裝 aicommit
+### 安裝方式
+
+#### 方式一：使用 pipx 安裝（推薦）⭐
+
+最簡單直接的方式：
 
 ```bash
-# 使用 pip 安裝
-pip install aicommit-joy
+# 如果還沒有 pipx，先安裝（macOS）
+brew install pipx
 
-# 或使用 pipx（推薦，避免依賴衝突）
+# 安裝 aicommit
 pipx install aicommit-joy
+```
+
+> 💡 **為什麼推薦 pipx？**
+>
+> pipx 會將 aicommit 安裝在獨立環境中，避免與其他 Python 套件衝突，同時讓命令全域可用。
+
+#### 方式二：自動安裝腳本（完全自動化）✨
+
+適合**所有使用者**，包括非 Python 專案。安裝腳本會自動處理所有依賴：
+
+**步驟 1：下載安裝腳本**
+
+從 [Releases 頁面](https://github.com/Joy0130/SmartCommit/releases/latest) 下載 `install.sh`
+
+或使用命令下載：
+
+```bash
+curl -L -O https://github.com/Joy0130/SmartCommit/releases/latest/download/install.sh
+```
+
+**步驟 2：執行安裝**
+
+```bash
+bash install.sh
+```
+
+安裝腳本會自動：
+
+- ✅ 檢查 Python 版本（需要 3.10+）
+- ✅ 自動安裝 pipx
+- ✅ 從 PyPI 安裝最新版本
+- ✅ 設定 API 金鑰（可選）
+- ✅ 驗證安裝成功
+
+#### 方式三：使用 pip 或 uv
+
+如果你偏好其他包管理工具：
+
+```bash
+# 使用 pip
+pip install aicommit-joy
 
 # 或使用 uv（最快速）
 uv tool install aicommit-joy
@@ -40,10 +85,17 @@ uv tool install aicommit-joy
 
 > 💡 **提示**:
 >
-> - 使用 **pipx** 請先執行 `pip install pipx`，參考 [pipx 官方文檔](https://github.com/pypa/pipx)
-> - 使用 **uv** 請先安裝 uv，參考 [uv 官方文檔](https://docs.astral.sh/uv/)
+> - 使用 **uv** 前請先安裝，參考 [uv 官方文檔](https://docs.astral.sh/uv/)
 
-### 2. 設定 API 金鑰
+#### 方式四：從原始碼安裝（開發者）
+
+```bash
+git clone https://github.com/Joy0130/SmartCommit.git
+cd SmartCommit
+./install.sh
+```
+
+### 設定 API 金鑰
 
 在您的專案目錄建立 `.env` 檔案：
 
@@ -54,7 +106,7 @@ echo "GEMINI_API_KEY=your_gemini_api_key_here" > .env
 > **如何取得 API 金鑰？**  
 > 前往 [Google AI Studio](https://aistudio.google.com/apikey) 免費取得您的 Gemini API 金鑰
 
-### 3. 開始使用
+### 開始使用
 
 ```bash
 # 在任何 Git 專案中
