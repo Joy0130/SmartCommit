@@ -5,7 +5,7 @@
 ## 📚 branch 分支功能
 
 - main：請參閱此檔案說明
-- ai：請切換到 **ai** 分支，參考 ai 分支的 README.md
+- ai：請切換到 **ai** 分支，參考 ai 分支的 README.md，此分支功能已發佈到 PyPI
 
 ## ✨ 功能特色
 
@@ -147,7 +147,7 @@ SmartCommit 遵循 [Conventional Commits](https://www.conventionalcommits.org/) 
 - ❌ `feat 新增功能` （缺少冒號）
 - ❌ `feat:` （subject 為空）
 
-## �️ 進階使用
+## 進階使用
 
 ### 查看版本
 
