@@ -68,8 +68,20 @@ def main():
             break
         elif user_input == 'e':
             # 讓使用者編輯訊息
-            print("\n請輸入新的 commit 訊息（按 Enter 確認）:")
-            edited_msg = input(f"{commit_msg}\n> ").strip()
+            print("\n" + "=" * 70)
+            print("✏️  編輯 Commit 訊息")
+            print("=" * 70)
+            print(f"\n📋 AI 建議訊息（可複製下方文字進行編輯）:")
+            print(f"\n   {commit_msg}\n")
+            print("─" * 70)
+            print("💡 提示:")
+            print("   • 可以複製上面的建議訊息，修改後貼到下方輸入框")
+            print("   • 或直接輸入全新的 commit 訊息")
+            print("   • 快捷鍵: Ctrl+A=行首 | Ctrl+E=行尾 | Ctrl+U=清空")
+            print("─" * 70)
+            
+            # 直接讓使用者輸入，不使用預填（macOS libedit 不支援）
+            edited_msg = input("\n請輸入 commit 訊息 > ").strip()
             
             # 如果使用者有輸入內容，驗證並使用編輯後的訊息
             if edited_msg:
