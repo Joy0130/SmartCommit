@@ -65,7 +65,7 @@ def generate_commit_message(diff_content):
     規範要求：
     1. 格式為：<type>: <subject>
     2. type 只能是：feat, fix, docs, style, refactor, test, chore, perf, ci, build, revert
-    3. subject 用繁體中文，簡潔有力，不超過 50 個字。
+    3. subject 用繁體中文，簡潔有力，不超過 20 個字。
     4. 不要輸出 Markdown 格式 (如 ```)，只輸出純文字訊息。
 
     Git Diff 內容：
