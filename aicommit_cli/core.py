@@ -143,9 +143,17 @@ def generate_commit_message(diff_content):
     3. subject 用繁體中文，簡潔有力，不超過 30 個字。
     4. 不要輸出 Markdown 格式 (如 ```)，只輸出純文字訊息。
 
+    type 選擇規則（優先順序由高至低）：
+    - 若異動的檔案全部為文件類型（如 .md、.txt、.rst），type 必須使用 docs
+    - 若異動包含測試檔案（如 test_*.py、*.test.js），type 優先使用 test
+    - 若異動只有設定檔（如 .toml、.yml、.json、.gitignore），type 使用 chore
+    - 若異動為修復已知問題，使用 fix；若為新增功能，使用 feat
+    - 判斷依據是「檔案路徑與類型」，而非 diff 內容所描述的功能名稱
+
     Git Diff 內容：
     {diff_content}
     """
+
 
     try:
         client = genai.Client(api_key=key)
