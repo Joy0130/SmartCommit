@@ -21,6 +21,7 @@ env/
 *.swp
 *.swo
 *~
+.DS_Store
 
 # OS 相關
 .DS_Store

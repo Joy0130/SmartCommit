@@ -46,8 +46,82 @@ def get_git_diff():  # 這裡建議改名，因為它抓的是 Diff 不是 Messa
         print("❌ 錯誤：找不到 git 指令，請確認已安裝 git。")
         return None
 
+def _smart_truncate_diff(diff_content: str, max_chars: int) -> str:
+    """智慧截斷 diff：優先保留 +/- 實際變更行，壓縮多餘的 context 行。"""
+    lines = diff_content.splitlines(keepends=True)
+    result = []
+    total = 0
+    skipped_hunks = 0
+
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+
+        # diff 標頭行（diff --git / index / --- / +++）一律保留
+        if line.startswith(('diff --git', 'index ', '--- ', '+++ ', 'new file', 'deleted file', 'rename ')):
+            chunk = line
+            if total + len(chunk) <= max_chars:
+                result.append(chunk)
+                total += len(chunk)
+            i += 1
+            continue
+
+        # hunk 標頭行（@@ ... @@）
+        if line.startswith('@@'):
+            hunk_header = line
+            hunk_lines = []
+            i += 1
+            # 收集此 hunk 的所有行
+            while i < len(lines) and not lines[i].startswith(('@@', 'diff --git')):
+                hunk_lines.append(lines[i])
+                i += 1
+
+            # 分離：changed 行 vs context 行
+            changed = [l for l in hunk_lines if l.startswith(('+', '-'))]
+            context = [l for l in hunk_lines if not l.startswith(('+', '-'))]
+
+            # 估算只保留 changed 行的大小
+            hunk_cost = len(hunk_header) + sum(len(l) for l in changed)
+
+            if total + hunk_cost > max_chars:
+                # 已超出上限，記錄跳過的 hunk 數
+                skipped_hunks += 1
+                continue
+
+            # 還有空間，嘗試加入 context 行
+            result.append(hunk_header)
+            total += len(hunk_header)
+
+            for hunk_line in hunk_lines:
+                is_changed = hunk_line.startswith(('+', '-'))
+                cost = len(hunk_line)
+                if is_changed:
+                    # 變更行一律保留
+                    result.append(hunk_line)
+                    total += cost
+                else:
+                    # context 行：有空間才加
+                    if total + cost <= max_chars:
+                        result.append(hunk_line)
+                        total += cost
+                    # else: 跳過此 context 行，不影響變更行的完整性
+            continue
+
+        # 其他行直接保留（不常見）
+        if total + len(line) <= max_chars:
+            result.append(line)
+            total += len(line)
+        i += 1
+
+    truncated = ''.join(result)
+    if skipped_hunks > 0:
+        truncated += f"\n\n...(因 diff 過大，已略過 {skipped_hunks} 個 hunk，以上為主要變更)..."
+    return truncated
+
+
 def generate_commit_message(diff_content):
     """使用 Gemini 生成 Commit 訊息"""
+
     if not diff_content:
         return None
         
@@ -55,9 +129,10 @@ def generate_commit_message(diff_content):
     if not key:
         return None
 
-    # 限制長度
-    if len(diff_content) > 3000:
-        diff_content = diff_content[:3000] + "\n...(略)..."
+    # 智慧截斷：優先保留實際變更行（+/-），必要時才壓縮 context 行
+    MAX_CHARS = 15000
+    if len(diff_content) > MAX_CHARS:
+        diff_content = _smart_truncate_diff(diff_content, MAX_CHARS)
 
     prompt = f"""
     你是一個資深的軟體工程師。請根據以下的 git diff 內容，生成一個符合 'Conventional Commits' 規範的 commit message。
@@ -65,7 +140,7 @@ def generate_commit_message(diff_content):
     規範要求：
     1. 格式為：<type>: <subject>
     2. type 只能是：feat, fix, docs, style, refactor, test, chore, perf, ci, build, revert
-    3. subject 用繁體中文，簡潔有力，不超過 20 個字。
+    3. subject 用繁體中文，簡潔有力，不超過 30 個字。
     4. 不要輸出 Markdown 格式 (如 ```)，只輸出純文字訊息。
 
     Git Diff 內容：
