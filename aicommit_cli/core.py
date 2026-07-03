@@ -2,6 +2,7 @@
 
 import os
 import subprocess
+import time
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -155,17 +156,49 @@ def generate_commit_message(diff_content):
     """
 
 
-    try:
-        client = genai.Client(api_key=key)
-        # 建議使用穩定版模型，或者統一用 gemini-2.0-flash
-        response = client.models.generate_content(
-            model='gemini-2.5-flash-lite', 
-            contents=prompt
-        )
-        return response.text.strip()
-    except Exception as e:
-        print(f"❌ AI 生成失敗: {e}")
-        return None
+    client = genai.Client(api_key=key)
+
+    # 針對 API 暫時性錯誤（如 503 高負載、429 限流）自動重試
+    MAX_RETRIES = 4
+    BASE_DELAY = 2  # 秒，指數退避的基礎延遲
+
+    last_error = None
+    for attempt in range(MAX_RETRIES):
+        try:
+            # 建議使用穩定版模型，或者統一用 gemini-2.0-flash
+            response = client.models.generate_content(
+                model='gemini-2.5-flash-lite',
+                contents=prompt
+            )
+            return response.text.strip()
+        except Exception as e:
+            last_error = e
+            if _is_retryable_error(e) and attempt < MAX_RETRIES - 1:
+                delay = BASE_DELAY * (2 ** attempt)
+                print(f"⏳ AI 服務忙碌中，{delay} 秒後重試 (第 {attempt + 1}/{MAX_RETRIES - 1} 次)...")
+                time.sleep(delay)
+                continue
+            # 不可重試的錯誤，或已用盡重試次數
+            break
+
+    print(f"❌ AI 生成失敗: {last_error}")
+    return None
+
+
+def _is_retryable_error(error) -> bool:
+    """判斷是否為可重試的暫時性錯誤（服務過載、限流、逾時等）。"""
+    # 優先使用 SDK 提供的 HTTP 狀態碼
+    code = getattr(error, 'code', None) or getattr(error, 'status_code', None)
+    if code in (429, 500, 502, 503, 504):
+        return True
+
+    # 退而求其次，比對錯誤訊息中的關鍵字
+    msg = str(error).lower()
+    retryable_keywords = (
+        '503', '502', '500', '429', 'unavailable',
+        'overloaded', 'high demand', 'rate limit', 'deadline', 'timeout',
+    )
+    return any(keyword in msg for keyword in retryable_keywords)
 
 def validate_commit_message(message):
     """驗證 commit 訊息格式"""
