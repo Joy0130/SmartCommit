@@ -6,7 +6,7 @@
 
 使用 AI 自動生成符合 [Conventional Commits](https://www.conventionalcommits.org/) 規範的 Git commit 訊息。
 
-採用 **Gemini 2.5 Flash-Lite** 模型，這是速度最快的 Flash 模型，經過最佳化調整，成本效益最高，輸送量也最大。
+採用 **gemini-3.1-flash-lite** 模型，這是速度最快的 Flash 模型，經過最佳化調整，成本效益最高，輸送量也最大。
 
 ## ✨ 功能特色
 

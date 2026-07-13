@@ -58,7 +58,7 @@ def main():
 
     # 檢查Commit訊息是否生成成功
     if not commit_msg:
-        print("Error: 無法生成 Commit 訊息 (可能是 API 錯誤或 Token 限制)")
+        print("Error: 無法生成 Commit 訊息 (可能是 API 錯誤或 Token 限制)，請稍候或換API Key再試一次")
         return
 
     # 輸出Commit訊息

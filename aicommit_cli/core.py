@@ -213,7 +213,7 @@ def _build_prompt(diff_content: str) -> str:
     規範要求：
     1. 格式為：<type>: <subject>
     2. type 只能是：feat, fix, docs, style, refactor, test, chore, perf, ci, build, revert
-    3. subject 用繁體中文，簡潔有力，不超過 30 個字。
+    3. subject 用繁體中文，簡潔有力，不超過 40 個字。
     4. 不要輸出 Markdown 格式 (如 ```)，只輸出純文字訊息。
     5. 請綜合考量 diff 中**所有**被修改的檔案與變更內容，產生能概括整體修改意圖的 commit message，不要只描述某一個檔案的變更。
 
@@ -245,7 +245,7 @@ def generate_commit_message(diff_content):
         return None
 
     # 不同層級的截斷上限；遇到 token 超限時依序降級
-    CHAR_LIMITS = [12000, 8000, 5000]
+    CHAR_LIMITS = [12000, 8000, 6000]
 
     client = genai.Client(api_key=key)
     MAX_SERVER_RETRIES = 3   # 伺服器錯誤最大重試次數
@@ -264,7 +264,7 @@ def generate_commit_message(diff_content):
         for attempt in range(MAX_SERVER_RETRIES):
             try:
                 response = client.models.generate_content(
-                    model='gemini-2.5-flash-lite',
+                    model='gemini-3.1-flash-lite', #gemini-2.5-flash-lite
                     contents=prompt
                 )
                 return response.text.strip()
