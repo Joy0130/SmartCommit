@@ -2,6 +2,10 @@
 
 import sys
 import subprocess
+try:
+    import readline  # noqa: F401  # 啟用方向鍵/Ctrl+A 等行編輯功能
+except ImportError:
+    pass  # Windows 若無 pyreadline3 則略過，僅退回基本輸入模式
 from .core import (
     get_api_key,
     get_git_diff,          # 只保留這個
