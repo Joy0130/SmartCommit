@@ -32,8 +32,13 @@ def main():
             return
         
         elif sys.argv[1] == '--version':
+            from importlib.metadata import version, PackageNotFoundError
             from . import __version__
-            print(f"aicommit-cli v{__version__}")
+            try:
+                current_version = version('aicommit-joy')
+            except PackageNotFoundError:
+                current_version = __version__
+            print(f"aicommit-cli v{current_version}")
             return
     
     # 檢查 API 金鑰
