@@ -74,9 +74,9 @@ def generate_commit_message(diff_content):
 
     try:
         client = genai.Client(api_key=key)
-        # 建議使用穩定版模型，或者統一用 gemini-2.0-flash
+        
         response = client.models.generate_content(
-            model='gemini-2.5-flash-lite', 
+            model='gemini-3.5-flash-lite', 
             contents=prompt
         )
         return response.text.strip()
